@@ -1,0 +1,3 @@
+recursive-include pretalx_vimeo/static *
+recursive-include pretalx_vimeo/templates *
+recursive-include pretalx_vimeo/locale *
