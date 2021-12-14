@@ -16,11 +16,11 @@
             </div>
         </form>
     {% empty %}
-    <div class="alert alert-warning">
-        {% blocktrans trimmed %}
-        You will be able to add vimeo URLs to your sessions once you've created a schedule.
-        {% endblocktrans %}
-    </div>
+        <div class="alert alert-warning">
+            {% blocktrans trimmed %}
+                You will be able to add vimeo URLs to your sessions once you've created a schedule.
+            {% endblocktrans %}
+        </div>
     {% endfor %}
 
 {% endblock %}

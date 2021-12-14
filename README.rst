@@ -1,5 +1,5 @@
 Vimeo integration
-==========================
+=================
 
 This is a plugin for `pretalx`_. 
 
