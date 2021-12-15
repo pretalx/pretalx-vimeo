@@ -31,10 +31,7 @@ class VimeoSettings(PermissionRequired, TemplateView):
             messages.error(request, form.errors)
             return super().get(request, *args, **kwargs)
         else:
-            request.event.settings.set(
-                f"vimeo_url_{submission.code}",
-                form.cleaned_data["vimeo_url"],
-            )
+            form.save()
             messages.success(request, _("The URL for this talk was updated."))
             return super().get(request, *args, **kwargs)
 
