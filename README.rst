@@ -1,7 +1,10 @@
 Vimeo integration
 =================
 
-This is a plugin for `pretalx`_. 
+This is a plugin for `pretalx`_ that provides an integration with Vimeo, allowing you to embed recordings on talk pages.
+
+Additionally, the Plugin supplies an API at ``/api/events/<event>/p/vimeo/`` containing all configured Vimeo URLs, and
+an API at ``/ap/events/<event>/submissions/<code>/p/vimeo/``, showing a submission's vimeo link.
 
 Development setup
 -----------------

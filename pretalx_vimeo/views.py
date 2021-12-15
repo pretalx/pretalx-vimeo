@@ -1,10 +1,12 @@
 from django.contrib import messages
+from django.http import Http404, JsonResponse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 from pretalx.common.mixins.views import PermissionRequired
 from pretalx.submission.models import Submission
 
 from .forms import VimeoUrlForm
+from .models import VimeoLink
 
 
 class VimeoSettings(PermissionRequired, TemplateView):
@@ -44,3 +46,34 @@ class VimeoSettings(PermissionRequired, TemplateView):
             for submission in self.request.event.talks
         ]
         return kwargs
+
+
+def check_api_access(request):
+    if "pretalx_vimeo" not in request.event.plugin_list:
+        raise Http404()
+    if not (
+        request.user.has_perm("agenda.view_schedule", request.event)
+        or request.user.has_perm("orga.view_submissions")
+    ):
+        raise Http404()
+
+
+def api_list(request, event):
+    check_api_access()
+    return JsonResponse(
+        {
+            "results": [
+                link.serialize()
+                for link in VimeoLink.objects.filter(submission__event=request.event)
+            ]
+        }
+    )
+
+
+def api_single(request, event, code):
+    check_api_access()
+    submission = request.event.submissions.filter(code__iexact=code).first()
+    if not submission:
+        raise Http404()
+    link = getattr(submission, "vimeo_link", None)
+    return JsonResponse(link.serialize() if link else {})

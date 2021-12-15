@@ -12,5 +12,15 @@ class VimeoLink(models.Model):
         return f"https://player.vimeo.com/video/{self.video_id}"
 
     @property
+    def vimeo_link(self):
+        return f"https://vimeo.com/video/{self.video_id}"
+
+    @property
     def iframe(self):
         return f'<div class="embed-responsive embed-responsive-16by9"><iframe src="{self.player_link}" frameborder="0" allowfullscreen></iframe></div>'
+
+    def serialize(self):
+        return {
+            "submission": self.submission.code,
+            "vimeo_link": self.vimeo_link,
+        }
