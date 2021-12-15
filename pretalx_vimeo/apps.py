@@ -11,7 +11,7 @@ class PluginApp(AppConfig):
         author = "Tobias Kunze"
         description = gettext_lazy("Embed Vimeo videos as session recordings, and retrieve them via an API.")
         visible = True
-        version = "2.0.0"
+        version = "2.0.1"
 
     def ready(self):
         from . import signals  # NOQA
