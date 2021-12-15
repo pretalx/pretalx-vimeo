@@ -9,9 +9,9 @@ class PluginApp(AppConfig):
     class PretalxPluginMeta:
         name = gettext_lazy("Vimeo integration")
         author = "Tobias Kunze"
-        description = gettext_lazy("Embed Vimeo videos as session recordings")
+        description = gettext_lazy("Embed Vimeo videos as session recordings, and retrieve them via an API.")
         visible = True
-        version = "0.0.0"
+        version = "2.0.0"
 
     def ready(self):
         from . import signals  # NOQA
