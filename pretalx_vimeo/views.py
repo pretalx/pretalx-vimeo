@@ -59,7 +59,7 @@ def check_api_access(request):
 
 
 def api_list(request, event):
-    check_api_access()
+    check_api_access(request)
     return JsonResponse(
         {
             "results": [
@@ -71,7 +71,7 @@ def api_list(request, event):
 
 
 def api_single(request, event, code):
-    check_api_access()
+    check_api_access(request)
     submission = request.event.submissions.filter(code__iexact=code).first()
     if not submission:
         raise Http404()
