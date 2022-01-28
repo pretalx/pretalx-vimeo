@@ -24,7 +24,7 @@ cmdclass = {"build": CustomBuild}
 
 setup(
     name="pretalx-vimeo",
-    version="2.0.1",
+    version="2.0.2",
     description="Embed Vimeo videos as session recordings",
     long_description=long_description,
     url="https://github.com/pretalx/pretalx-vimeo",

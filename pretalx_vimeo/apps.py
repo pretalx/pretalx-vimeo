@@ -13,7 +13,7 @@ class PluginApp(AppConfig):
             "Embed Vimeo videos as session recordings, and retrieve them via an API."
         )
         visible = True
-        version = "2.0.1"
+        version = "2.0.2"
 
     def ready(self):
         from . import signals  # NOQA
