@@ -9,7 +9,9 @@ class PluginApp(AppConfig):
     class PretalxPluginMeta:
         name = gettext_lazy("Vimeo integration")
         author = "Tobias Kunze"
-        description = gettext_lazy("Embed Vimeo videos as session recordings, and retrieve them via an API.")
+        description = gettext_lazy(
+            "Embed Vimeo videos as session recordings, and retrieve them via an API."
+        )
         visible = True
         version = "2.0.1"
 
