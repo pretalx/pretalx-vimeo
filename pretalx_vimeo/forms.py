@@ -21,6 +21,8 @@ class VimeoUrlForm(forms.Form):
 
     def clean_video_id(self):
         data = self.cleaned_data["video_id"]
+        if not data:
+            return data
         if "vimeo.com" not in data:
             raise forms.ValidationError(_("Please provide a Vimeo URL!"))
         parts = [v for v in data.split("/") if v]
