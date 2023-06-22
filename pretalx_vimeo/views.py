@@ -43,7 +43,9 @@ class VimeoSettings(PermissionRequired, TemplateView):
         kwargs = super().get_context_data(**kwargs)
         kwargs["url_forms"] = [
             VimeoUrlForm(submission=submission)
-            for submission in self.request.event.talks
+            for submission in self.request.event.talks.all()
+            .filter(is_visible=True, submission__isnull=False)
+            .order_by("start")
         ]
         return kwargs
 

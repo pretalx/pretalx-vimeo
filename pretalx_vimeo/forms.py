@@ -5,7 +5,6 @@ from .models import VimeoLink
 
 
 class VimeoUrlForm(forms.Form):
-
     video_id = forms.URLField(required=False)
 
     def __init__(self, *args, **kwargs):
