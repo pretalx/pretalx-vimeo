@@ -18,11 +18,11 @@ class VimeoUrlForm(forms.Form):
         )
         initial = kwargs.get("initial", dict())
         vimeo_data = {
-            v.submission.code: v.video_id
+            v.submission.code: v.vimeo_link
             for v in VimeoLink.objects.filter(submission__event=event)
         }
-        for code, video_id in vimeo_data.items():
-            initial[f"video_id_{code}"] = f"https://vimeo.com/{video_id}"
+        for code, video_link in vimeo_data.items():
+            initial[f"video_id_{code}"] = video_link
 
         kwargs["initial"] = initial
         super().__init__(*args, **kwargs)
