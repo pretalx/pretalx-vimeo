@@ -1,3 +1,5 @@
+import copy
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -5,37 +7,51 @@ from .models import VimeoLink
 
 
 class VimeoUrlForm(forms.Form):
-    video_id = forms.URLField(required=False)
+    def __init__(self, *args, event, **kwargs):
+        if not event.current_schedule:
+            return super().__init__(*args, **kwargs)
 
-    def __init__(self, *args, **kwargs):
-        self.submission = kwargs.pop("submission")
+        self.talks = (
+            event.current_schedule.talks.all()
+            .filter(is_visible=True, submission__isnull=False)
+            .order_by("start")
+        )
+        initial = kwargs.get("initial", dict())
+        vimeo_data = {
+            v.submission.code: v.video_id
+            for v in VimeoLink.objects.filter(submission__event=event)
+        }
+        for code, video_id in vimeo_data.items():
+            initial[f"video_id_{code}"] = f"https://vimeo.com/{video_id}"
 
-        vimeo = getattr(self.submission, "vimeo_link", None)
-        if vimeo:
-            initial = kwargs.get("initial", dict())
-            initial["video_id"] = f"https://vimeo.com/{vimeo.video_id}"
-            kwargs["initial"] = initial
+        kwargs["initial"] = initial
         super().__init__(*args, **kwargs)
-        self.fields["video_id"].label = self.submission.title
 
-    def clean_video_id(self):
-        data = self.cleaned_data["video_id"]
-        if not data:
-            return data
-        if "vimeo.com" not in data:
-            raise forms.ValidationError(_("Please provide a Vimeo URL!"))
-        parts = [v for v in data.split("/") if v]
-        return parts[-1]
+        for talk in self.talks:
+            self.fields[f"video_id_{talk.submission.code}"] = forms.URLField(
+                required=False,
+                label=talk.submission.title,
+                widget=forms.TextInput(attrs={"placeholder": ""}),
+            )
+
+    def clean(self):
+        result = {}
+        for key, value in copy.copy(self.cleaned_data).items():
+            if not value:
+                result[key] = None
+            elif "vimeo.com" not in value:
+                self.add_error(key, _("Please provide a Vimeo URL!"))
+            else:
+                parts = [v for v in value.split("/") if v]
+                result[key] = parts[-1]
+        return result
 
     def save(self):
-        video_id = self.cleaned_data.get("video_id")
-        if video_id:
-            VimeoLink.objects.update_or_create(
-                submission=self.submission, defaults={"video_id": video_id}
-            )
-        else:
-            VimeoLink.objects.filter(submission=self.submission).delete()
-
-    class Meta:
-        model = VimeoLink
-        fields = ("video_id",)
+        for talk in self.talks:
+            video_id = self.cleaned_data.get("video_id_{talk.submission.code}")
+            if video_id:
+                VimeoLink.objects.update_or_create(
+                    submission=talk.submission, defaults={"video_id": video_id}
+                )
+            else:
+                VimeoLink.objects.filter(submission=talk.submission).delete()
