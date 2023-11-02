@@ -1,6 +1,8 @@
 from django.apps import AppConfig
 from django.utils.translation import gettext_lazy
 
+from . import __version__
+
 
 class PluginApp(AppConfig):
     name = "pretalx_vimeo"
@@ -13,7 +15,7 @@ class PluginApp(AppConfig):
             "Embed Vimeo videos as session recordings, and retrieve them via an API."
         )
         visible = True
-        version = "2.1.0"
+        version = __version__
         category = "RECORDING"
 
     def ready(self):
