@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-25 12:10+0000\n"
+"POT-Creation-Date: 2023-10-03 12:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,12 +25,24 @@ msgstr ""
 msgid "Embed Vimeo videos as session recordings, and retrieve them via an API."
 msgstr ""
 
+#: local/pretalx-vimeo/pretalx_vimeo/forms.py:25
+msgid "Go to video"
+msgstr ""
+
 #: local/pretalx-vimeo/pretalx_vimeo/forms.py:26
+msgid "Go to talk page."
+msgstr ""
+
+#: local/pretalx-vimeo/pretalx_vimeo/forms.py:46
 msgid "Please provide a Vimeo URL!"
 msgstr ""
 
 #: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:7
 msgid "Set up Vimeo embeds"
+msgstr ""
+
+#: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:15
+msgid "Save"
 msgstr ""
 
 #: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:20
@@ -39,10 +51,14 @@ msgid ""
 "schedule."
 msgstr ""
 
-#: local/pretalx-vimeo/pretalx_vimeo/views.py:28
-msgid "Could not find this talk."
+#: local/pretalx-vimeo/pretalx_vimeo/views.py:29
+msgid "Please create a schedule first!"
 msgstr ""
 
-#: local/pretalx-vimeo/pretalx_vimeo/views.py:37
-msgid "The URL for this talk was updated."
+#: local/pretalx-vimeo/pretalx_vimeo/views.py:33
+msgid "Please fix the errors below."
+msgstr ""
+
+#: local/pretalx-vimeo/pretalx_vimeo/views.py:36
+msgid "The Vimeo URLs were updated."
 msgstr ""
