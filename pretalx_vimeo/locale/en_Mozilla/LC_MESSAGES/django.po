@@ -22,7 +22,8 @@ msgid "Vimeo integration"
 msgstr ""
 
 #: local/pretalx-vimeo/pretalx_vimeo/apps.py:15
-msgid "Embed Vimeo videos as session recordings, and retrieve them via an API."
+msgid ""
+"Embed Vimeo videos as session recordings, and retrieve them via an API."
 msgstr ""
 
 #: local/pretalx-vimeo/pretalx_vimeo/forms.py:25

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 15:39+0000\n"
+"POT-Creation-Date: 2024-10-12 00:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,8 @@ msgid "Vimeo integration"
 msgstr ""
 
 #: local/pretalx-vimeo/pretalx_vimeo/apps.py:15
-msgid "Embed Vimeo videos as session recordings, and retrieve them via an API."
+msgid ""
+"Embed Vimeo videos as session recordings, and retrieve them via an API."
 msgstr ""
 
 #: local/pretalx-vimeo/pretalx_vimeo/forms.py:25
@@ -38,15 +39,11 @@ msgstr ""
 msgid "Please provide a Vimeo URL!"
 msgstr ""
 
-#: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:7
+#: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:6
 msgid "Set up Vimeo embeds"
 msgstr ""
 
-#: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:15
-msgid "Save"
-msgstr ""
-
-#: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:20
+#: local/pretalx-vimeo/pretalx_vimeo/templates/pretalx_vimeo/settings.html:11
 msgid ""
 "You will be able to add vimeo URLs to your sessions once you've created a "
 "schedule."
