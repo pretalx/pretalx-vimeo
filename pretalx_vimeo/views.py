@@ -9,7 +9,7 @@ from .models import VimeoLink
 
 
 class VimeoSettings(PermissionRequired, FormView):
-    permission_required = "orga.change_settings"
+    permission_required = "event.update_event"
     template_name = "pretalx_vimeo/settings.html"
     form_class = VimeoUrlForm
 
@@ -41,8 +41,8 @@ def check_api_access(request):
     if "pretalx_vimeo" not in request.event.plugin_list:
         raise Http404()
     if not (
-        request.user.has_perm("agenda.view_schedule", request.event)
-        or request.user.has_perm("orga.view_submissions")
+        request.user.has_perm("schedule.list_schedule", request.event)
+        or request.user.has_perm("submission.orga_list_submission")
     ):
         raise Http404()
 
