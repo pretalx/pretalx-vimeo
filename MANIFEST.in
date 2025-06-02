@@ -3,4 +3,5 @@ recursive-include pretalx_vimeo/templates *
 exclude pretalx_vimeo/locale/django.pot
 recursive-include pretalx_vimeo/locale *
 recursive-include pretalx_vimeo *.py
+recursive-exclude assets *.png
 include Makefile
