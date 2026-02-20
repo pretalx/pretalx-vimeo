@@ -1,12 +1,13 @@
 from django.dispatch import receiver
 from django.urls import reverse
+
 from pretalx.agenda.signals import register_recording_provider
 from pretalx.orga.signals import nav_event_settings
 
 
 @receiver(register_recording_provider)
 def vimeo_provider(sender, **kwargs):
-    from .recording import VimeoProvider
+    from .recording import VimeoProvider  # noqa: PLC0415
 
     return VimeoProvider(sender)
 

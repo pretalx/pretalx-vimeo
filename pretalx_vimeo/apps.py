@@ -22,4 +22,4 @@ class PluginApp(AppConfig):
         ]
 
     def ready(self):
-        from . import signals  # NOQA
+        from . import signals  # noqa: PLC0415, F401
