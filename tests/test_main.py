@@ -13,8 +13,7 @@ API_SINGLE_URL_NAME = "plugins:pretalx_vimeo:api_single"
 @pytest.mark.django_db
 def test_orga_can_access_settings(orga_client, event):
     response = orga_client.get(
-        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug}),
-        follow=True,
+        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug}), follow=True
     )
     assert response.status_code == 200
 
@@ -22,7 +21,7 @@ def test_orga_can_access_settings(orga_client, event):
 @pytest.mark.django_db
 def test_reviewer_cannot_access_settings(review_client, event):
     response = review_client.get(
-        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug}),
+        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug})
     )
     assert response.status_code == 404
 
@@ -30,8 +29,7 @@ def test_reviewer_cannot_access_settings(review_client, event):
 @pytest.mark.django_db
 def test_settings_without_schedule_shows_info(orga_client, event):
     response = orga_client.get(
-        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug}),
-        follow=True,
+        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug}), follow=True
     )
     assert response.status_code == 200
     assert b"schedule" in response.content.lower()
@@ -40,9 +38,7 @@ def test_settings_without_schedule_shows_info(orga_client, event):
 @pytest.mark.django_db
 def test_post_without_schedule_shows_error(orga_client, event):
     response = orga_client.post(
-        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug}),
-        data={},
-        follow=True,
+        reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug}), data={}, follow=True
     )
     assert response.status_code == 200
 
@@ -51,9 +47,7 @@ def test_post_without_schedule_shows_error(orga_client, event):
 def test_orga_can_save_vimeo_url(orga_client, event, submission, schedule):
     url = reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug})
     response = orga_client.post(
-        url,
-        {f"video_id_{submission.code}": "https://vimeo.com/123456789"},
-        follow=True,
+        url, {f"video_id_{submission.code}": "https://vimeo.com/123456789"}, follow=True
     )
     assert response.status_code == 200
     with scopes_disabled():
@@ -77,11 +71,7 @@ def test_orga_invalid_url_rejected(orga_client, event, submission, schedule):
 @pytest.mark.django_db
 def test_orga_can_clear_vimeo_url(orga_client, event, submission, schedule, vimeo_link):
     url = reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug})
-    response = orga_client.post(
-        url,
-        {f"video_id_{submission.code}": ""},
-        follow=True,
-    )
+    response = orga_client.post(url, {f"video_id_{submission.code}": ""}, follow=True)
     assert response.status_code == 200
     with scopes_disabled():
         assert not VimeoLink.objects.filter(submission=submission).exists()
@@ -108,8 +98,7 @@ def test_api_list_empty(orga_client, event):
 @pytest.mark.django_db
 def test_api_single(orga_client, event, submission, vimeo_link):
     url = reverse(
-        API_SINGLE_URL_NAME,
-        kwargs={"event": event.slug, "code": submission.code},
+        API_SINGLE_URL_NAME, kwargs={"event": event.slug, "code": submission.code}
     )
     response = orga_client.get(url)
     assert response.status_code == 200
@@ -121,8 +110,7 @@ def test_api_single(orga_client, event, submission, vimeo_link):
 @pytest.mark.django_db
 def test_api_single_no_link(orga_client, event, submission):
     url = reverse(
-        API_SINGLE_URL_NAME,
-        kwargs={"event": event.slug, "code": submission.code},
+        API_SINGLE_URL_NAME, kwargs={"event": event.slug, "code": submission.code}
     )
     response = orga_client.get(url)
     assert response.status_code == 200
@@ -131,10 +119,7 @@ def test_api_single_no_link(orga_client, event, submission):
 
 @pytest.mark.django_db
 def test_api_single_not_found(orga_client, event):
-    url = reverse(
-        API_SINGLE_URL_NAME,
-        kwargs={"event": event.slug, "code": "ZZZZZZ"},
-    )
+    url = reverse(API_SINGLE_URL_NAME, kwargs={"event": event.slug, "code": "ZZZZZZ"})
     response = orga_client.get(url)
     assert response.status_code == 404
 

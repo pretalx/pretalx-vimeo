@@ -20,8 +20,7 @@ def vimeo_settings(sender, request, **kwargs):
         {
             "label": "Vimeo",
             "url": reverse(
-                "plugins:pretalx_vimeo:settings",
-                kwargs={"event": request.event.slug},
+                "plugins:pretalx_vimeo:settings", kwargs={"event": request.event.slug}
             ),
             "active": request.resolver_match.url_name
             == "plugins:pretalx_vimeo:settings",

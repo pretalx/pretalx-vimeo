@@ -11,9 +11,7 @@ urlpatterns = [
         name="settings",
     ),
     re_path(
-        rf"^api/events/(?P<event>{SLUG_REGEX})/p/vimeo/$",
-        api_list,
-        name="api_list",
+        rf"^api/events/(?P<event>{SLUG_REGEX})/p/vimeo/$", api_list, name="api_list"
     ),
     re_path(
         rf"^api/events/(?P<event>{SLUG_REGEX})/submissions/(?P<code>[A-Z0-9]+)/p/vimeo/$",

@@ -7,6 +7,9 @@ class VimeoLink(models.Model):
     )
     video_id = models.CharField(max_length=20)
 
+    def __str__(self):
+        return f"VimeoLink(event={self.submission.event}, submission={self.submission})"
+
     @property
     def player_link(self):
         return f"https://player.vimeo.com/video/{self.video_id}"
@@ -20,7 +23,4 @@ class VimeoLink(models.Model):
         return f'<div class="embed-responsive embed-responsive-16by9"><iframe src="{self.player_link}" frameborder="0" allowfullscreen></iframe></div>'
 
     def serialize(self):
-        return {
-            "submission": self.submission.code,
-            "vimeo_link": self.vimeo_link,
-        }
+        return {"submission": self.submission.code, "vimeo_link": self.vimeo_link}
