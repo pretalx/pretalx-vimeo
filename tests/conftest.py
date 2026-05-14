@@ -4,8 +4,10 @@ import pytest
 from django.core import management
 from django_scopes import scopes_disabled
 
+from pretalx.event.domain.event import initialise_event
 from pretalx.event.models import Event, Organiser, Team
 from pretalx.person.models import User
+from pretalx.schedule.domain.release import freeze_schedule
 from pretalx.schedule.models import Room, TalkSlot
 from pretalx.submission.models import Submission, SubmissionType
 
@@ -47,6 +49,7 @@ def event(organiser):
             date_to=today + dt.timedelta(days=3),
             organiser=organiser,
         )
+        initialise_event(event)
         event.enable_plugin("pretalx_vimeo")
         event.save()
         for team in organiser.teams.all():
@@ -130,7 +133,7 @@ def schedule(event, submission, room):
             end=event.datetime_from + dt.timedelta(minutes=60),
             is_visible=True,
         )
-        event.release_schedule("v1")
+        freeze_schedule(event.wip_schedule, name="v1")
         return event.current_schedule
 
 
