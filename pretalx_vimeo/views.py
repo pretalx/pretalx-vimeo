@@ -14,9 +14,6 @@ class VimeoSettings(PermissionRequired, FormView):
     template_name = "pretalx_vimeo/settings.html"
     form_class = VimeoUrlForm
 
-    def get_success_url(self):
-        return self.request.path
-
     def get_object(self):
         return self.request.event
 
@@ -39,8 +36,8 @@ class VimeoSettings(PermissionRequired, FormView):
 
 
 def check_api_access(request):
-    if "pretalx_vimeo" not in request.event.plugin_list:
-        raise Http404
+    # The event middleware already 404s requests for disabled plugins, so we
+    # only need to enforce per-user permissions here.
     if not (
         request.user.has_perm("schedule.list_schedule", request.event)
         or request.user.has_perm("submission.orga_list_submission")
