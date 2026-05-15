@@ -2,16 +2,16 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/pretalx/pretalx-vimeo/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                           |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
-|------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
-| pretalx\_vimeo/\_\_init\_\_.py |        1 |        0 |        0 |        0 |    100% |           |
-| pretalx\_vimeo/apps.py         |       15 |        0 |        0 |        0 |    100% |           |
-| pretalx\_vimeo/forms.py        |       35 |        0 |       16 |        0 |    100% |           |
-| pretalx\_vimeo/models.py       |       15 |        0 |        0 |        0 |    100% |           |
-| pretalx\_vimeo/recording.py    |        6 |        0 |        2 |        0 |    100% |           |
-| pretalx\_vimeo/signals.py      |       12 |        1 |        2 |        0 |     93% |        12 |
-| pretalx\_vimeo/views.py        |       45 |        2 |       10 |        1 |     95% |    18, 43 |
-| **TOTAL**                      |  **129** |    **3** |   **30** |    **1** | **97%** |           |
+| Name                           |    Stmts |     Miss |   Branch |   BrPart |    Cover |   Missing |
+|------------------------------- | -------: | -------: | -------: | -------: | -------: | --------: |
+| pretalx\_vimeo/\_\_init\_\_.py |        1 |        0 |        0 |        0 |     100% |           |
+| pretalx\_vimeo/apps.py         |       15 |        0 |        0 |        0 |     100% |           |
+| pretalx\_vimeo/forms.py        |       35 |        0 |       16 |        0 |     100% |           |
+| pretalx\_vimeo/models.py       |       15 |        0 |        0 |        0 |     100% |           |
+| pretalx\_vimeo/recording.py    |        6 |        0 |        2 |        0 |     100% |           |
+| pretalx\_vimeo/signals.py      |       12 |        0 |        2 |        0 |     100% |           |
+| pretalx\_vimeo/views.py        |       41 |        0 |        8 |        0 |     100% |           |
+| **TOTAL**                      |  **125** |    **0** |   **28** |    **0** | **100%** |           |
 
 
 ## Setup coverage badge
