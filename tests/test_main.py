@@ -2,6 +2,9 @@ import pytest
 from django.urls import reverse
 from django_scopes import scopes_disabled
 
+from pretalx.agenda.signals import register_recording_provider
+from pretalx.event.domain.plugins import disable_plugin
+
 from pretalx_vimeo.models import VimeoLink
 from pretalx_vimeo.recording import VimeoProvider
 
@@ -156,3 +159,22 @@ def test_recording_provider_without_link(event, submission):
     provider = VimeoProvider(event)
     recording = provider.get_recording(submission)
     assert recording is None
+
+
+@pytest.mark.django_db
+def test_signal_registers_recording_provider(event):
+    responses = register_recording_provider.send(event)
+    providers = [response for _, response in responses]
+    assert any(isinstance(provider, VimeoProvider) for provider in providers)
+
+
+@pytest.mark.django_db
+def test_api_404_when_plugin_disabled(orga_client, event, vimeo_link):
+    # The event middleware blocks disabled (visible) plugins, so API requests
+    # 404 before the view runs.
+    with scopes_disabled():
+        disable_plugin(event, "pretalx_vimeo")
+        event.save()
+    url = reverse(API_LIST_URL_NAME, kwargs={"event": event.slug})
+    response = orga_client.get(url)
+    assert response.status_code == 404

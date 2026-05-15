@@ -5,6 +5,7 @@ from django.core import management
 from django_scopes import scopes_disabled
 
 from pretalx.event.domain.event import initialise_event
+from pretalx.event.domain.plugins import enable_plugin
 from pretalx.event.models import Event, Organiser, Team
 from pretalx.person.models import User
 from pretalx.schedule.domain.release import freeze_schedule
@@ -50,7 +51,7 @@ def event(organiser):
             organiser=organiser,
         )
         initialise_event(event)
-        event.enable_plugin("pretalx_vimeo")
+        enable_plugin(event, "pretalx_vimeo")
         event.save()
         for team in organiser.teams.all():
             team.limit_events.add(event)
