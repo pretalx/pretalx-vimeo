@@ -7,11 +7,11 @@
 | pretalx\_vimeo/\_\_init\_\_.py |        1 |        0 |        0 |        0 |     100% |           |
 | pretalx\_vimeo/apps.py         |       15 |        0 |        0 |        0 |     100% |           |
 | pretalx\_vimeo/forms.py        |       35 |        0 |       16 |        0 |     100% |           |
-| pretalx\_vimeo/models.py       |       15 |        0 |        0 |        0 |     100% |           |
+| pretalx\_vimeo/models.py       |       16 |        0 |        0 |        0 |     100% |           |
 | pretalx\_vimeo/recording.py    |        6 |        0 |        2 |        0 |     100% |           |
 | pretalx\_vimeo/signals.py      |       12 |        0 |        2 |        0 |     100% |           |
 | pretalx\_vimeo/views.py        |       41 |        0 |        8 |        0 |     100% |           |
-| **TOTAL**                      |  **125** |    **0** |   **28** |    **0** | **100%** |           |
+| **TOTAL**                      |  **126** |    **0** |   **28** |    **0** | **100%** |           |
 
 
 ## Setup coverage badge
