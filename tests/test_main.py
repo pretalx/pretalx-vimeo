@@ -146,6 +146,17 @@ def test_vimeo_link_properties(vimeo_link):
 
 
 @pytest.mark.django_db
+def test_vimeo_link_iframe_escapes_video_id(submission):
+    # The iframe is rendered with |safe on the public talk page, so the
+    # video_id must be HTML-escaped at build time.
+    with scopes_disabled():
+        link = VimeoLink.objects.create(submission=submission, video_id='"><b>x')
+    iframe = link.iframe
+    assert "<b>" not in iframe
+    assert "&quot;&gt;&lt;b&gt;" in iframe
+
+
+@pytest.mark.django_db
 def test_recording_provider_with_link(event, submission, vimeo_link):
     provider = VimeoProvider(event)
     recording = provider.get_recording(submission)

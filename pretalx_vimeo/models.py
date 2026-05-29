@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 
 class VimeoLink(models.Model):
@@ -20,7 +21,10 @@ class VimeoLink(models.Model):
 
     @property
     def iframe(self):
-        return f'<div class="embed-responsive embed-responsive-16by9"><iframe src="{self.player_link}" frameborder="0" allowfullscreen></iframe></div>'
+        return format_html(
+            '<div class="embed-responsive embed-responsive-16by9"><iframe src="{}" frameborder="0" allowfullscreen></iframe></div>',
+            self.player_link,
+        )
 
     def serialize(self):
         return {"submission": self.submission.code, "vimeo_link": self.vimeo_link}
