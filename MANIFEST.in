@@ -5,3 +5,4 @@ recursive-exclude assets *.png
 recursive-include pretalx_vimeo/locale *
 recursive-include pretalx_vimeo *.py
 include justfile
+include uv.lock
