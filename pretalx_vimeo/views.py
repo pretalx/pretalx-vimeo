@@ -51,7 +51,9 @@ def api_list(request, event):
         {
             "results": [
                 link.serialize()
-                for link in VimeoLink.objects.filter(submission__event=request.event)
+                for link in VimeoLink.objects.filter(
+                    submission__event=request.event
+                ).select_related("submission")
             ]
         }
     )
@@ -62,5 +64,5 @@ def api_single(request, event, code):
     submission = request.event.submissions.filter(code__iexact=code).first()
     if not submission:
         raise Http404
-    link = getattr(submission, "vimeo_link", None)
+    link = VimeoLink.objects.filter(submission=submission).first()
     return JsonResponse(link.serialize() if link else {})
