@@ -58,6 +58,59 @@ def test_orga_can_save_vimeo_url(orga_client, event, submission, schedule):
         assert link.video_id == "123456789"
 
 
+@pytest.mark.parametrize(
+    ("value", "video_id", "video_hash"),
+    (
+        ("https://vimeo.com/video/1231699412", "1231699412", ""),
+        (
+            "https://vimeo.com/1230837194/e1c69878b7?fl=pl&fe=sh",
+            "1230837194",
+            "e1c69878b7",
+        ),
+        (
+            "https://player.vimeo.com/video/1230837194?h=e1c69878b7",
+            "1230837194",
+            "e1c69878b7",
+        ),
+        ("https://vimeo.com/showcase/111/video/222", "222", ""),
+        ("https://vimeo.com/channels/staffpicks/333", "333", ""),
+        ("https://vimeo.com/444/not-a-hash", "444", ""),
+    ),
+)
+@pytest.mark.django_db
+def test_orga_can_save_vimeo_url_variants(
+    orga_client, event, submission, schedule, value, video_id, video_hash
+):
+    url = reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug})
+    response = orga_client.post(
+        url, {f"video_id_{submission.code}": value}, follow=True
+    )
+    assert response.status_code == 200
+    with scopes_disabled():
+        link = VimeoLink.objects.get(submission=submission)
+        assert link.video_id == video_id
+        assert link.video_hash == video_hash
+
+
+@pytest.mark.parametrize(
+    "value",
+    (
+        "https://youtube.com/watch?v=abc",
+        "https://example.com/vimeo.com/123",
+        "https://vimeo.com/channels/staffpicks",
+    ),
+)
+@pytest.mark.django_db
+def test_orga_invalid_url_variants_rejected(
+    orga_client, event, submission, schedule, value
+):
+    url = reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug})
+    response = orga_client.post(url, {f"video_id_{submission.code}": value})
+    assert response.status_code == 200
+    with scopes_disabled():
+        assert not VimeoLink.objects.filter(submission=submission).exists()
+
+
 @pytest.mark.django_db
 def test_orga_invalid_url_rejected(orga_client, event, submission, schedule):
     url = reverse(SETTINGS_URL_NAME, kwargs={"event": event.slug})
@@ -143,6 +196,16 @@ def test_vimeo_link_properties(vimeo_link):
     serialized = vimeo_link.serialize()
     assert serialized["submission"] == vimeo_link.submission.code
     assert serialized["vimeo_link"] == vimeo_link.vimeo_link
+
+
+@pytest.mark.django_db
+def test_vimeo_link_properties_unlisted(submission):
+    with scopes_disabled():
+        link = VimeoLink.objects.create(
+            submission=submission, video_id="1230837194", video_hash="e1c69878b7"
+        )
+    assert link.player_link == "https://player.vimeo.com/video/1230837194?h=e1c69878b7"
+    assert link.vimeo_link == "https://vimeo.com/1230837194/e1c69878b7"
 
 
 @pytest.mark.django_db
